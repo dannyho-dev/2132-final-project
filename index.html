@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="/2132-project/css/style.css" />
+        <script src="/2132-project/scripts/module-imports.js" defer="defer" type="module"></script>
+        <script src="/2132-project/scripts/script.js" defer="defer"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <main class="container">
+                <h1>COMP 2132 Project</h1>
+                <section id="hangman">
+                    <div id="hangman-graphic">
+                        <div id="hp-bars">
+                            <div class="hp-container">
+                                <div class="hp-bg">
+                                    <div id="pone-hp" class="hp-fill">
+                                        <div id="pone-hp-text" class="hp-text"></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="hp-container">
+                                <div class="hp-bg">
+                                    <div id="ptwo-hp" class="hp-fill">
+                                        <div id="ptwo-hp-text" class="hp-text"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="./images/ryu/ryu-idle.gif" id="ryu" />
+                        <img src="./images/sagat/sagat-idle.gif" id="sagat" />
+                    </div>
+                    <div id="hangman-control">
+                        <div id="output"></div>
+                        <button id="newword" type="button">Start</button>
+                    </div>
+                    <div id="hangman-keys">
+                        <div id="keyrowQ"></div>
+                        <div id="keyrowA"></div>
+                        <div id="keyrowZ"></div>
+                    </div>
+                </section>
+                   
+            </main>
+
+            <footer></footer>
+        </div>
+        
+    </body>
+</html>
+
