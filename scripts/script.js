@@ -1,4 +1,4 @@
-const ERRORS_ALLOWED = 5;
+const ERRORS_ALLOWED = 6;
 const fetch_file_location = "./data/fruits.json";
 
 let gameStart = false;
@@ -15,6 +15,7 @@ const rowA = document.getElementById("keyrowA");
 const rowZ = document.getElementById("keyrowZ");
 const newWordBtn = document.getElementById("newword");
 const output = document.getElementById("output");
+const outcome = document.getElementById("outcome");
 const pOneHP = document.getElementById("pone-hp");
 const pOneHPText = document.getElementById("pone-hp-text");
 const pTwoHP = document.getElementById("ptwo-hp");
@@ -34,7 +35,6 @@ createRow(rowZ, lettersZ);
 
 newWordBtn.addEventListener("click", (e) => {
     gameStart = true;
-     
     if (!obtainedList) {
         output.appendChild(spinner);
         newWordBtn.textContent = "Try Another Word";
@@ -59,7 +59,6 @@ newWordBtn.addEventListener("click", (e) => {
         output.innerHTML = '';
         resetGame(theWordList);
     }
-    
 })
 
 // Functions
@@ -99,6 +98,7 @@ function handleGuess(keyPress, event) {
                 console.log("You Win!");
                 lockKeys();
                 gameStart = false;
+                displayOutcome(true);
                 //Victory logic
             }
         } else {
@@ -110,6 +110,7 @@ function handleGuess(keyPress, event) {
             gameStart = false;
             lockKeys();
             console.log("word wasn't guessed");
+            displayOutcome(false);
             //Lost logic
         }
     } else {
@@ -118,6 +119,7 @@ function handleGuess(keyPress, event) {
 }
 
 function resetGame(list) {
+    outcome.innerHTML = "";
     numLetters = 0;
     numErrors = 0;
     document.querySelectorAll(".key").forEach(btn => {
@@ -140,6 +142,21 @@ function updateHP() {
     pOneHPText.textContent = `${ERRORS_ALLOWED-numErrors} / ${ERRORS_ALLOWED}`;
     pTwoHP.style.width = 100-(numLetters/theWordArr.length * 100) + '%';
     pTwoHPText.textContent = `${theWordArr.length-numLetters} / ${theWordArr.length}`;
+}
+
+function displayOutcome(victory) {
+    let popup = document.createElement("div");
+
+    //popup.classList.add("outcome");
+    popup.style.backgroundColor = "white";
+    popup.style.padding = "20px";
+    popup.style.borderRadius = "8px";
+    popup.style.fontSize = "2rem";
+
+    popup.textContent = victory ? "YOU WIN!" : "YOU LOSE";
+
+    outcome.innerHTML = ""; // clear previous
+    outcome.append(popup);
 }
 
 /*
