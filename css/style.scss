@@ -1,20 +1,46 @@
-//import variable values
 @use  "variables";
-
-//import your mixins  
 @use  "mixins";
- 
-/* //import resets
-@use "normalize";
-@use "box_reset";
+@import url("fonts.css");
+@import url("normalize.css");
 
-//import resets
-@use "header";
-@use "page_content";
-@use "footer"; 
 
-//import wide screen media query styles
-@use "widescreen_layout"; */
+
+html {
+    font-size:16px;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+:root{
+    /* page specific colors */    
+    --main-color:rgb(130, 157, 206);
+    --main-color-transparent:rgba(130, 157, 206, .25);    
+    --second-color:rgb(206, 180, 130);    
+    --second-color-transparent:rgba(206, 180, 130, 0.25);
+    
+    /* universal palette */
+    --background-color: #4d40a6;
+    --dark-color:#242424;
+    --light-color:rgb(245, 245, 245);
+    --total: rgb(23, 77, 19);
+    --btn-color: #6c6c8c;
+
+    /* fonts */
+    --font-face:'Lato';
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-face), 'Lato', sans-serif;        
+    background: var(--background-color);
+    color:var(--main-color);
+}
+
+h1 {
+    text-align: center;
+}
 
 #hangman {
     #hangman-graphic {
@@ -73,13 +99,13 @@
                     transform-origin: right center 0px;
                     right: 0;
                     width: 100%;
-                    background: linear-gradient(270deg,rgba(155, 42, 44, 1) 0%, rgba(199, 171, 87, 1) 50%, rgba(255, 229, 0, 1) 100%);
+                    @include mixins.character-hp(270deg);
                     position: absolute;
                 }
 
                 #ptwo-hp {
                     width: 100%;
-                    background: linear-gradient(90deg,rgba(155, 42, 44, 1) 0%, rgba(199, 171, 87, 1) 50%, rgba(255, 229, 0, 1) 100%);
+                    @include mixins.character-hp(90deg);
                     position: absolute;
                 }
             }
@@ -122,9 +148,6 @@
         margin-top: 20px;
     }
 }
-
-
-
 
 .key {
     width: 45px;
@@ -182,6 +205,6 @@
 }
 
 .hidden-letter {
-    color: #ddd;
-    border-bottom: black 2px solid
+    color: var(--background-color);
+    border-bottom: var(--light-color) 2px solid;
 }

@@ -1,5 +1,5 @@
-@mixin rounded-shaded-box($xoffset, $yoffset, $rounded-corners, $border-color){
-    box-shadow:$xoffset $yoffset 10px #5d5d5d;	  
-    border-radius:$rounded-corners;    
-    border:3px solid $border-color;    
+@use "variables";
+
+@mixin character-hp($direction) {
+    background: linear-gradient($direction, variables.$hp_color_red, variables.$hp_color_orange, variables.$hp_color_yellow) ;
 }

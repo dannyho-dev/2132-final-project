@@ -3,8 +3,10 @@ const fetch_file_location = "./data/fruits.json";
 
 let gameStart = false;
 let obtainedList = false;
+let originalWordList;
 let theWordList;
 let theWord;
+let theHint;
 let theWordArr;
 let numLetters = 0;
 let numErrors = 0;
@@ -16,6 +18,7 @@ const rowZ = document.getElementById("keyrowZ");
 const newWordBtn = document.getElementById("newword");
 const output = document.getElementById("output");
 const outcome = document.getElementById("outcome");
+const hint = document.getElementById("hint");
 const pOneHP = document.getElementById("pone-hp");
 const pOneHPText = document.getElementById("pone-hp-text");
 const pTwoHP = document.getElementById("ptwo-hp");
@@ -47,8 +50,9 @@ newWordBtn.addEventListener("click", (e) => {
             }            
         })
         .then(function(data){
+            originalWordList = [...data];
+            theWordList = shuffle([...data]);
             output.innerHTML = '';
-            theWordList = shuffle(data);
             resetGame(theWordList);
             obtainedList = true;
         })
@@ -73,7 +77,7 @@ function createRow(tag, letters) {
     });
 }
 
-function createDisplay(stringArr) {
+function createDisplay(stringArr, hintStr) {
     stringArr.forEach((string) => {
         const div = document.createElement("div");
         div.textContent = string.toUpperCase();
@@ -81,6 +85,10 @@ function createDisplay(stringArr) {
         div.classList.add("hidden-letter");
         output.appendChild(div);
     })
+
+    const div = document.createElement("div");
+    div.textContent = hintStr;
+    hint.appendChild(div);
 }
 
 function handleGuess(keyPress, event) {
@@ -88,28 +96,28 @@ function handleGuess(keyPress, event) {
         event.target.disabled = true;
         if (theWordArr.includes(keyPress.toLowerCase())) {
             let numCorrect = 0;
-            theWordArr.forEach((word) => {
-                if (word === keyPress.toLowerCase()){
+            theWordArr.forEach((letter, index) => {
+                if (letter === keyPress.toLowerCase()){
+                    const letterDivs = document.querySelectorAll(".game-letter");
+                    letterDivs[index].classList.remove("hidden-letter");
                     numCorrect++;
                 }
             })
             numLetters += numCorrect;
-            if (numLetters >= theWordArr.length) {
-                console.log("You Win!");
-                lockKeys();
-                gameStart = false;
-                displayOutcome(true);
-                //Victory logic
-            }
         } else {
             numErrors++;
         }
         updateHP();
-
+        if (numLetters >= theWordArr.length) {
+            console.log("You Win!");
+            lockKeys();
+            gameStart = false;
+            displayOutcome(true);
+            //Victory logic
+        }
         if (numErrors >= ERRORS_ALLOWED) {
             gameStart = false;
             lockKeys();
-            console.log("word wasn't guessed");
             displayOutcome(false);
             //Lost logic
         }
@@ -119,15 +127,21 @@ function handleGuess(keyPress, event) {
 }
 
 function resetGame(list) {
+    const item = list.pop();
+    if (list.length < 1) {
+        theWordList = shuffle([...originalWordList]);
+    }
     outcome.innerHTML = "";
+    hint.innerHTML = "";
     numLetters = 0;
     numErrors = 0;
     document.querySelectorAll(".key").forEach(btn => {
         btn.disabled = false;
     });
-    theWord = list.pop().word;
+    theWord = item.word;
+    theHint = item.hint;
     theWordArr = theWord.split('');
-    createDisplay(theWordArr);
+    createDisplay(theWordArr, theHint);
     updateHP();
 }
 
@@ -147,7 +161,6 @@ function updateHP() {
 function displayOutcome(victory) {
     let popup = document.createElement("div");
 
-    //popup.classList.add("outcome");
     popup.style.backgroundColor = "white";
     popup.style.padding = "20px";
     popup.style.borderRadius = "8px";
@@ -155,7 +168,7 @@ function displayOutcome(victory) {
 
     popup.textContent = victory ? "YOU WIN!" : "YOU LOSE";
 
-    outcome.innerHTML = ""; // clear previous
+    outcome.innerHTML = "";
     outcome.append(popup);
 }
 

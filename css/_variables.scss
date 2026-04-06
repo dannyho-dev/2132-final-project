@@ -1,13 +1,6 @@
 $primary_color: #a31a1a;
 $secondary_color: rgb(225, 127, 127);
 $wrapper_color: white;
-
-$font-sizes: (
-  small: 0.9rem,
-  medium: 1rem,
-  large: 1.2rem  
-);
-$font-weights:(
-    normal:500,
-    bold:800
-);
+$hp_color_red: rgba(155, 42, 44, 1) 0%;
+$hp_color_orange: rgba(199, 171, 87, 1) 50%;
+$hp_color_yellow: rgba(255, 229, 0, 1) 100%;
