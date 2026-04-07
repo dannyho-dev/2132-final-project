@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'Lato';
-    src: url('/2132-project/fonts/Lato-Black.ttf') format('truetype');
+    src: url('../fonts/Lato-Black.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Street Fighter';
-    src: url('/2132-project/fonts/sf2-font.ttf') format('truetype');
+    src: url('../fonts/sf2-font.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

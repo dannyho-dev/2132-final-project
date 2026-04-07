@@ -44,7 +44,7 @@ h1 {
   width: 100%;
   height: 240px;
   background-repeat: no-repeat;
-  background-image: url("/2132-project/images/stage-ryu.png");
+  background-image: url("../images/stage-ryu.png");
   background-position: center;
   margin-bottom: 20px;
   text-align: center;
