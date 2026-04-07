@@ -4,9 +4,19 @@
   { "word": "orange", "hint": "citrus full of vitamin C" },
   { "word": "grape", "hint": "small juicy clustered" },
   { "word": "peach", "hint": "soft fuzzy summer" },
-  { "word": "cherry", "hint": "small red stone" },
+  { "word": "cherry", "hint": "small red fruit" },
   { "word": "mango", "hint": "sweet tropical orange flesh" },
   { "word": "papaya", "hint": "tropical with seeds" },
   { "word": "pear", "hint": "sweet bell shaped" },
-  { "word": "plum", "hint": "smooth skin juicy" }
+  { "word": "plum", "hint": "smooth skin juicy" },
+  { "word": "pineapple", "hint": "spiky tropical fruit" },
+  { "word": "strawberry", "hint": "red with tiny seeds outside" },
+  { "word": "blueberry", "hint": "small blue antioxidant rich" },
+  { "word": "watermelon", "hint": "large green rind red inside" },
+  { "word": "kiwi", "hint": "brown outside green inside" },
+  { "word": "lemon", "hint": "sour yellow citrus" },
+  { "word": "lime", "hint": "small green citrus" },
+  { "word": "coconut", "hint": "hard shell tropical white flesh" },
+  { "word": "apricot", "hint": "small orange stone fruit" },
+  { "word": "pomegranate", "hint": "red seeds inside thick skin" }
 ]

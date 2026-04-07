@@ -15,7 +15,7 @@ html {
 
 :root{
     /* page specific colors */    
-    --main-color:rgb(130, 157, 206);
+    --main-color:#ff8855;
     --main-color-transparent:rgba(130, 157, 206, .25);    
     --second-color:rgb(206, 180, 130);    
     --second-color-transparent:rgba(206, 180, 130, 0.25);
@@ -29,8 +29,8 @@ html {
 
     /* fonts */
     --font-face:'Lato';
-    --font-outcome:'Street Fighter';
-    --font-outcome-size: 3rem;
+    --font-message:'Street Fighter';
+    --font-message-size: 3rem;
 }
 
 body {
@@ -42,7 +42,7 @@ body {
 
 h1 {
     text-align: center;
-    font-family: var(--font-outcome), "Street Fighter", sans-serif;
+    font-family: var(--font-message), "Street Fighter", sans-serif;
 }
 
 #hangman {
@@ -93,7 +93,6 @@ h1 {
 
                 .hp-fill {
                     height: 100%;
-                    
                     border-right: 2px solid #000;
                     transition: width 0.5s ease-in-out;
                 }
@@ -136,12 +135,8 @@ h1 {
             gap: 6px;
         }
 
-        #keyrowA {
-            margin-left: 20px;
-        }
-
-        #keyrowZ {
-            margin-left: 20px;
+        #keyrowA, #keyrowZ {
+            margin-left: 5px;
         }
 
         display: flex;
@@ -186,14 +181,14 @@ h1 {
     font-size: xx-large;
 }
 
-#outcome {
+#message {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    font-family: var(--font-outcome), "Street Fighter", sans-serif;
-    font-size: var(--font-outcome-size);
+    font-family: var(--font-message), "Street Fighter", sans-serif;
+    font-size: var(--font-message-size);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,0 +1,22 @@
+[
+  { "word": "soccer", "hint": "kick ball into goal" },
+  { "word": "basketball", "hint": "shoot hoops on a court" },
+  { "word": "baseball", "hint": "bat and bases game" },
+  { "word": "tennis", "hint": "racket sport over a net" },
+  { "word": "golf", "hint": "hit ball into holes" },
+  { "word": "hockey", "hint": "ice sport with sticks" },
+  { "word": "football", "hint": "tackle and score touchdowns" },
+  { "word": "cricket", "hint": "bat and wicket game" },
+  { "word": "rugby", "hint": "physical ball carrying sport" },
+  { "word": "volleyball", "hint": "hit ball over net" },
+  { "word": "badminton", "hint": "racket sport with shuttlecock" },
+  { "word": "boxing", "hint": "fight with gloves" },
+  { "word": "swimming", "hint": "race in water" },
+  { "word": "cycling", "hint": "ride bikes competitively" },
+  { "word": "skiing", "hint": "slide on snow downhill" },
+  { "word": "snowboarding", "hint": "ride board on snow" },
+  { "word": "surfing", "hint": "ride ocean waves" },
+  { "word": "wrestling", "hint": "grapple opponent to win" },
+  { "word": "archery", "hint": "shoot arrows at targets" },
+  { "word": "fencing", "hint": "duel with swords" }
+]

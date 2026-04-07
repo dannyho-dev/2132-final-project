@@ -2,11 +2,11 @@ import { Ryu } from "./Ryu.js";
 import { Sagat } from "./Sagat.js";
 
 const ERRORS_ALLOWED = 6;
-const fetch_file_location = "./data/fruits.json";
+const fruitsPath = "./data/fruits.json";
+const sportsPath = "./data/sports.json";
 
 const ryu = new Ryu();
 const sagat = new Sagat();
-
 
 let gameStart = false;
 let obtainedList = false;
@@ -15,8 +15,9 @@ let theWordList;
 let theWord;
 let theHint;
 let theWordArr;
-let numLetters = 0;
-let numErrors = 0;
+let numLetters = 0; // Successful guesses
+let numErrors = 0; // Failed guesses
+let messageAnim;
 
 // Tags
 const rowQ = document.getElementById("keyrowQ");
@@ -24,7 +25,7 @@ const rowA = document.getElementById("keyrowA");
 const rowZ = document.getElementById("keyrowZ");
 const newWordBtn = document.getElementById("newword");
 const output = document.getElementById("output");
-const outcome = document.getElementById("outcome");
+const message = document.getElementById("message");
 const hint = document.getElementById("hint");
 const pOne = document.getElementById("p-one");
 const pOneHP = document.getElementById("pone-hp");
@@ -50,24 +51,23 @@ newWordBtn.addEventListener("click", (e) => {
     if (!obtainedList) {
         output.appendChild(spinner);
         newWordBtn.textContent = "Try Another Word";
-        fetch(fetch_file_location)
-        .then(function(response){
-            if(response.ok){
-                return response.json();
-            }else{
-                console.log("Network error: fetch failed");
-            }            
-        })
-        .then(function(data){
-            originalWordList = [...data];
-            theWordList = shuffle([...data]);
+        Promise.all([
+            fetch(fruitsPath).then(res => res.json()),
+            fetch(sportsPath).then(res => res.json())
+        ])
+        .then(([fruits, sports]) => {
+            const combinedList = [...fruits, ...sports];
+
+            originalWordList = [...combinedList];
+            theWordList = shuffle([...combinedList]);
+
             output.innerHTML = '';
             resetGame(theWordList);
             obtainedList = true;
         })
-        .catch(function(error){
+        .catch(error => {
             output.innerHTML = `<p>${error}. Please try again.</p>`;
-    });
+        });
     } else {
         output.innerHTML = '';
         resetGame(theWordList);
@@ -122,8 +122,10 @@ function handleGuess(keyPress, event) {
         if (numLetters >= theWordArr.length) {
             lockKeys();
             gameStart = false;
-            displayOutcome(true);
-            pOne.src = ryu.getVictoryAnim();
+            setTimeout(() => {
+                displayMessage("YOU WIN!");
+                pOne.src = ryu.getVictoryAnim();
+            }, 1000);
             pTwo.src = sagat.getDefeatAnim();
             //Victory logic
         }
@@ -134,9 +136,12 @@ function handleGuess(keyPress, event) {
             })
             gameStart = false;
             lockKeys();
-            displayOutcome(false);
+            setTimeout(() => {
+                displayMessage("YOU LOSE");
+                pTwo.src = sagat.getVictoryAnim();
+            }, 1000);
             pOne.src = ryu.getDefeatAnim();
-            pTwo.src = sagat.getVictoryAnim();
+            
             
             //Lost logic
         }
@@ -150,7 +155,7 @@ function resetGame(list) {
     if (list.length < 1) {
         theWordList = shuffle([...originalWordList]);
     }
-    outcome.innerHTML = "";
+    message.innerHTML = "";
     hint.innerHTML = "";
     numLetters = 0;
     numErrors = 0;
@@ -164,6 +169,10 @@ function resetGame(list) {
     updateHP();
     pOne.src = ryu.getIdleAnim();
     pTwo.src = sagat.getIdleAnim();
+    displayMessage("FIGHT!");
+    setTimeout(() => {
+        animateMessage();
+    }, 500); 
 }
 
 function lockKeys() {
@@ -179,13 +188,14 @@ function updateHP() {
     pTwoHPText.textContent = `${theWordArr.length-numLetters} / ${theWordArr.length}`;
 }
 
-function displayOutcome(victory) {
+function displayMessage(string) {
     let popup = document.createElement("div");
 
-    popup.textContent = victory ? "YOU WIN!" : "YOU LOSE";
+    popup.textContent = string;
+    popup.style.opacity = 1;
 
-    outcome.innerHTML = "";
-    outcome.append(popup);
+    message.innerHTML = "";
+    message.append(popup);
 }
 
 function displayAnimation(playerOne, playerTwo, attacked) {
@@ -196,7 +206,24 @@ function displayAnimation(playerOne, playerTwo, attacked) {
         pOne.src = playerOne.getRandomHurtAnim();
         pTwo.src = playerTwo.getRandomAttackAnim();
     }
-    
+}
+
+function animateMessage() {
+    const theMessage = message.children[0];
+    const fadeSpeed = 0.02;
+
+    if (!theMessage) return;
+
+    let opacity = parseFloat(theMessage.style.opacity);
+
+    if (opacity > 0) {
+        opacity -= fadeSpeed;
+        theMessage.style.opacity = opacity;
+
+        messageAnim = requestAnimationFrame(animateMessage);
+    } else {
+        cancelAnimationFrame(messageAnim);
+    }
 }
 
 /*
