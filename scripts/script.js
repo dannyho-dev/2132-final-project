@@ -124,7 +124,8 @@ function handleGuess(keyPress, event) {
             gameStart = false;
             setTimeout(() => {
                 displayMessage("YOU WIN!");
-                pOne.src = ryu.getVictoryAnim();
+                pOne.src = ryu.getVictoryAnim() + "?t=" + Date.now(); // Resets gif
+                
             }, 1000);
             pTwo.src = sagat.getDefeatAnim();
             //Victory logic
