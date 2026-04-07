@@ -1,5 +1,12 @@
+import { Ryu } from "./Ryu.js";
+import { Sagat } from "./Sagat.js";
+
 const ERRORS_ALLOWED = 6;
 const fetch_file_location = "./data/fruits.json";
+
+const ryu = new Ryu();
+const sagat = new Sagat();
+
 
 let gameStart = false;
 let obtainedList = false;
@@ -19,8 +26,10 @@ const newWordBtn = document.getElementById("newword");
 const output = document.getElementById("output");
 const outcome = document.getElementById("outcome");
 const hint = document.getElementById("hint");
+const pOne = document.getElementById("p-one");
 const pOneHP = document.getElementById("pone-hp");
 const pOneHPText = document.getElementById("pone-hp-text");
+const pTwo = document.getElementById("p-two");
 const pTwoHP = document.getElementById("ptwo-hp");
 const pTwoHPText = document.getElementById("ptwo-hp-text");
 
@@ -104,21 +113,31 @@ function handleGuess(keyPress, event) {
                 }
             })
             numLetters += numCorrect;
+            displayAnimation(ryu, sagat, 1);
         } else {
             numErrors++;
+            displayAnimation(ryu, sagat, 0);
         }
         updateHP();
         if (numLetters >= theWordArr.length) {
-            console.log("You Win!");
             lockKeys();
             gameStart = false;
             displayOutcome(true);
+            pOne.src = ryu.getVictoryAnim();
+            pTwo.src = sagat.getDefeatAnim();
             //Victory logic
         }
         if (numErrors >= ERRORS_ALLOWED) {
+            const letterDivs = document.querySelectorAll(".game-letter");
+            letterDivs.forEach((letter) => {
+                letter.classList.remove("hidden-letter");
+            })
             gameStart = false;
             lockKeys();
             displayOutcome(false);
+            pOne.src = ryu.getDefeatAnim();
+            pTwo.src = sagat.getVictoryAnim();
+            
             //Lost logic
         }
     } else {
@@ -143,6 +162,8 @@ function resetGame(list) {
     theWordArr = theWord.split('');
     createDisplay(theWordArr, theHint);
     updateHP();
+    pOne.src = ryu.getIdleAnim();
+    pTwo.src = sagat.getIdleAnim();
 }
 
 function lockKeys() {
@@ -161,15 +182,21 @@ function updateHP() {
 function displayOutcome(victory) {
     let popup = document.createElement("div");
 
-    popup.style.backgroundColor = "white";
-    popup.style.padding = "20px";
-    popup.style.borderRadius = "8px";
-    popup.style.fontSize = "2rem";
-
     popup.textContent = victory ? "YOU WIN!" : "YOU LOSE";
 
     outcome.innerHTML = "";
     outcome.append(popup);
+}
+
+function displayAnimation(playerOne, playerTwo, attacked) {
+    if (attacked === 1) {
+        pOne.src = playerOne.getRandomAttackAnim();
+        pTwo.src = playerTwo.getRandomHurtAnim();
+    } else {
+        pOne.src = playerOne.getRandomHurtAnim();
+        pTwo.src = playerTwo.getRandomAttackAnim();
+    }
+    
 }
 
 /*

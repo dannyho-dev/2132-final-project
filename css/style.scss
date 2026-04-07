@@ -29,6 +29,8 @@ html {
 
     /* fonts */
     --font-face:'Lato';
+    --font-outcome:'Street Fighter';
+    --font-outcome-size: 3rem;
 }
 
 body {
@@ -40,6 +42,7 @@ body {
 
 h1 {
     text-align: center;
+    font-family: var(--font-outcome), "Street Fighter", sans-serif;
 }
 
 #hangman {
@@ -53,17 +56,17 @@ h1 {
         margin-bottom: 20px;
         text-align: center;
 
-        #ryu {
-            position: relative;
-            left: -5%;
-            top: 21%;
+        #p-one {
+            position: absolute;
+            left: 40%;
+            bottom: 25px;
         }
 
-        #sagat {
-            position: relative;
+        #p-two {
+            position: absolute;
             transform: scaleX(-1);
-            left: 5%;
-            top: 21%;
+            left: 55%;
+            bottom: 25px;
         }
 
         #hp-bars {
@@ -189,13 +192,12 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-
+    font-family: var(--font-outcome), "Street Fighter", sans-serif;
+    font-size: var(--font-outcome-size);
     display: flex;
     align-items: center;
     justify-content: center;
-
-    z-index: 100;         /* make sure it's above everything */
-    pointer-events: none; /* optional */
+    z-index: 100;
 }
 
 #output {
